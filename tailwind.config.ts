@@ -81,11 +81,26 @@ export default {
           busy: "rgb(239 68 68)",
           offline: "rgb(156 163 175)",
         },
+        gold: {
+          DEFAULT: "#D4AF37",
+          light: "#E5C766",
+          dark: "#B8962E",
+          muted: "#C9A24A",
+        },
+        royal: {
+          black: "#0F0F0F",
+          dark: "#121212",
+          cream: "#F8F5F0",
+          emerald: "#1B5E20",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
+        cinzel: ["Cinzel", "serif"],
+        display: ["Cinzel", "serif"],
+        body: ["Inter", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
