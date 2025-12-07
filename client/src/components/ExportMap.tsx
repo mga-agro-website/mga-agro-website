@@ -1,18 +1,13 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Globe, MapPin } from "lucide-react";
+import { Globe } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { ExportCountry } from "@shared/schema";
 
 export default function ExportMap() {
-  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
-  
   const { data: countries, isLoading } = useQuery<ExportCountry[]>({
     queryKey: ["/api/countries"],
   });
-
-  const hoveredCountryData = countries?.find(c => c.id === hoveredCountry);
 
   return (
     <section
@@ -61,7 +56,7 @@ export default function ExportMap() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative aspect-[2/1] max-w-5xl mx-auto"
+          className="relative aspect-[2/1] max-w-5xl mx-auto rounded-lg overflow-hidden border border-gold/20"
           data-testid="export-map-container"
         >
           {isLoading ? (
@@ -70,161 +65,13 @@ export default function ExportMap() {
             </div>
           ) : (
             <>
-              {/* Simplified World Map SVG */}
-              <svg
-                viewBox="0 0 100 50"
-                className="w-full h-full"
-                preserveAspectRatio="xMidYMid meet"
-                data-testid="export-map-svg"
-              >
-                {/* Simplified continent outlines */}
-                <defs>
-                  <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.1" />
-                    <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.05" />
-                  </linearGradient>
-                </defs>
-
-                {/* North America */}
-                <path
-                  d="M10,15 Q15,10 25,12 Q30,15 28,25 Q25,30 20,32 Q15,30 12,25 Q10,20 10,15"
-                  fill="url(#mapGradient)"
-                  stroke="#D4AF37"
-                  strokeWidth="0.2"
-                  strokeOpacity="0.3"
-                />
-
-                {/* South America */}
-                <path
-                  d="M22,35 Q28,38 26,48 Q22,50 20,45 Q18,40 22,35"
-                  fill="url(#mapGradient)"
-                  stroke="#D4AF37"
-                  strokeWidth="0.2"
-                  strokeOpacity="0.3"
-                />
-
-                {/* Europe */}
-                <path
-                  d="M45,18 Q55,15 55,25 Q52,28 48,26 Q44,24 45,18"
-                  fill="url(#mapGradient)"
-                  stroke="#D4AF37"
-                  strokeWidth="0.2"
-                  strokeOpacity="0.3"
-                />
-
-                {/* Africa */}
-                <path
-                  d="M48,32 Q58,30 58,45 Q55,52 50,50 Q45,45 48,32"
-                  fill="url(#mapGradient)"
-                  stroke="#D4AF37"
-                  strokeWidth="0.2"
-                  strokeOpacity="0.3"
-                />
-
-                {/* Asia */}
-                <path
-                  d="M55,12 Q75,10 85,20 Q88,30 80,35 Q70,40 60,35 Q55,30 55,20 Q55,15 55,12"
-                  fill="url(#mapGradient)"
-                  stroke="#D4AF37"
-                  strokeWidth="0.2"
-                  strokeOpacity="0.3"
-                />
-
-                {/* Australia */}
-                <path
-                  d="M78,55 Q88,52 90,60 Q88,68 82,68 Q76,65 78,55"
-                  fill="url(#mapGradient)"
-                  stroke="#D4AF37"
-                  strokeWidth="0.2"
-                  strokeOpacity="0.3"
-                />
-
-                {/* Grid lines */}
-                {[...Array(5)].map((_, i) => (
-                  <line
-                    key={`h-${i}`}
-                    x1="0"
-                    y1={10 + i * 10}
-                    x2="100"
-                    y2={10 + i * 10}
-                    stroke="#D4AF37"
-                    strokeWidth="0.05"
-                    strokeOpacity="0.1"
-                  />
-                ))}
-                {[...Array(10)].map((_, i) => (
-                  <line
-                    key={`v-${i}`}
-                    x1={10 + i * 10}
-                    y1="0"
-                    x2={10 + i * 10}
-                    y2="50"
-                    stroke="#D4AF37"
-                    strokeWidth="0.05"
-                    strokeOpacity="0.1"
-                  />
-                ))}
-
-                {/* Country markers */}
-                {countries?.map((country) => (
-                  <g key={country.id}>
-                    <motion.circle
-                      cx={country.x}
-                      cy={country.y}
-                      r={hoveredCountry === country.id ? 1.5 : 0.8}
-                      fill="#D4AF37"
-                      className="cursor-pointer"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.5, delay: Math.random() * 0.5 }}
-                      onMouseEnter={() => setHoveredCountry(country.id)}
-                      onMouseLeave={() => setHoveredCountry(null)}
-                      data-testid={`map-marker-${country.id}`}
-                    />
-                    {/* Pulse effect */}
-                    <motion.circle
-                      cx={country.x}
-                      cy={country.y}
-                      r="2"
-                      fill="none"
-                      stroke="#D4AF37"
-                      strokeWidth="0.1"
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={{
-                        opacity: [0.5, 0],
-                        scale: [0.5, 2],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: Math.random() * 2,
-                      }}
-                    />
-                  </g>
-                ))}
-              </svg>
-
-              {/* Hover tooltip */}
-              {hoveredCountryData && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-royal-black/95 backdrop-blur-sm border border-gold/30 rounded-lg px-6 py-4 pointer-events-none z-10"
-                  data-testid="export-tooltip"
-                >
-                  <div className="flex items-center gap-3">
-                    <MapPin className="w-5 h-5 text-gold" />
-                    <div>
-                      <h4 className="font-cinzel text-lg font-bold text-white">
-                        {hoveredCountryData.name}
-                      </h4>
-                      <p className="text-gold/80 text-sm">
-                        Since {hoveredCountryData.since}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
+              {/* World Map Image */}
+              <img
+                src="/MAP.jpg"
+                alt="World Map showing export countries"
+                className="w-full h-full object-cover"
+                data-testid="export-map-image"
+              />
             </>
           )}
         </motion.div>

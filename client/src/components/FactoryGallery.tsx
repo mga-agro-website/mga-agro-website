@@ -5,6 +5,32 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { FactoryImage } from "@shared/schema";
 
+// Local factory images from public folder mapped by factory image ID
+const factoryImageMap: Record<string, string> = {
+  sorter: "/German Color Sorter in action.png",
+  polisher: "/Satake Polisher Detail.png",
+  packaging: "/High-Volume Processing Flow.png",
+  quality: "/Quality Control Lab Inspection.png",
+  storage: "/Climate-Controlled Storage.png",
+  workers: "/Overall Factory Environment.png",
+};
+
+// Fallback images array (using local images)
+const fallbackImages = [
+  "/Overall Factory Environment.png",
+  "/High-Volume Processing Flow.png",
+  "/Macro View of Polished Grains.png",
+];
+
+const getFactoryImage = (imageId: string, index: number) => {
+  // Try to get specific image by ID first
+  if (factoryImageMap[imageId]) {
+    return factoryImageMap[imageId];
+  }
+  // Fallback to index-based selection
+  return fallbackImages[index % fallbackImages.length];
+};
+
 export default function FactoryGallery() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   
@@ -83,14 +109,19 @@ export default function FactoryGallery() {
               >
                 <div className={`relative overflow-hidden rounded-lg ${
                   getHeight(index) === "tall" ? "h-[400px] sm:h-full" : "h-[250px] sm:h-[280px]"
-                } bg-gradient-to-br from-gray-800 to-gray-900`}>
-                  {/* Placeholder pattern */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <Factory className="w-12 h-12 text-gold/30 mx-auto mb-3" />
-                      <span className="text-white/30 text-sm">{image.title}</span>
-                    </div>
-                  </div>
+                }`}>
+                  {/* Stock Factory Images */}
+                  <img
+                    src={getFactoryImage(image.id, index)}
+                    alt={image.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      // Fallback if image fails to load
+                      const target = e.target as HTMLImageElement;
+                      target.src = fallbackImages[index % fallbackImages.length];
+                    }}
+                  />
 
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
@@ -159,9 +190,17 @@ export default function FactoryGallery() {
 
           <div className="max-w-4xl w-full">
             <div className="text-center">
-              <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg aspect-video flex items-center justify-center mb-6">
-                <Factory className="w-24 h-24 text-gold/30" />
-              </div>
+              <img
+                src={selectedImageData ? getFactoryImage(selectedImageData.id, images?.findIndex(img => img.id === selectedImage) || 0) : ""}
+                alt={selectedImageData?.title || "Factory Image"}
+                className="w-full h-auto rounded-lg mb-6 object-cover max-h-[80vh]"
+                onError={(e) => {
+                  // Fallback if image fails to load
+                  const target = e.target as HTMLImageElement;
+                  const fallbackIndex = images?.findIndex(img => img.id === selectedImage) || 0;
+                  target.src = fallbackImages[fallbackIndex % fallbackImages.length];
+                }}
+              />
               <h3 className="font-cinzel text-2xl font-bold text-white mb-2">
                 {selectedImageData.title}
               </h3>

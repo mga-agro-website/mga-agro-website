@@ -3,6 +3,7 @@ import { Package, Sparkles } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { PackagingProduct } from "@shared/schema";
+import { productImages } from "@/lib/images";
 
 const colorGradients = [
   "from-gray-800 to-gray-900",
@@ -94,34 +95,29 @@ export default function PackagingShowcase() {
                     style={{ perspective: "1000px" }}
                   >
                     {/* Package mockup */}
-                    <div className={`relative h-[320px] sm:h-[360px] rounded-lg overflow-hidden bg-gradient-to-br ${colorGradients[index % colorGradients.length]} border border-gold/20 group-hover:border-gold/50 transition-colors duration-500`}>
+                    <div className="relative h-[350px] sm:h-[400px] rounded-lg overflow-hidden bg-transparent border border-gold/10 group-hover:border-gold/30 transition-colors duration-500">
                       {/* Package visual */}
-                      <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
-                        {/* Size badge */}
-                        <div className="absolute top-4 right-4 bg-gold/90 text-royal-black px-3 py-1 rounded-full text-sm font-bold">
-                          {product.size}
-                        </div>
-
-                        {/* Package icon */}
-                        <div className="relative mb-4">
-                          <Package className="w-20 h-20 sm:w-24 sm:h-24 text-gold/50" />
-                          <motion.div
-                            animate={{ 
-                              scale: [1, 1.2, 1],
-                              opacity: [0.3, 0.6, 0.3]
-                            }}
-                            transition={{ duration: 3, repeat: Infinity }}
-                            className="absolute inset-0 bg-gold/20 blur-xl rounded-full"
+                      <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+                        <motion.img 
+                          src={productImages[product.image] || product.image}
+                          alt={product.type}
+                          className="w-full h-full object-contain drop-shadow-2xl"
+                          whileHover={{ scale: 1.05, rotateY: 10 }}
+                          transition={{ type: "spring", stiffness: 200, damping: 20 }}
                           />
-                        </div>
 
                         {/* Sparkle effect */}
-                        <Sparkles className="absolute top-1/3 left-1/4 w-4 h-4 text-gold/40 animate-pulse" />
-                        <Sparkles className="absolute bottom-1/3 right-1/4 w-3 h-3 text-gold/30 animate-pulse delay-300" />
+                        <Sparkles className="absolute top-1/4 right-1/4 w-5 h-5 text-gold animate-pulse" />
+                        <Sparkles className="absolute bottom-1/4 left-1/4 w-4 h-4 text-gold/60 animate-pulse delay-700" />
+                      </div>
+
+                      {/* Size badge */}
+                      <div className="absolute top-4 right-4 bg-gold/90 text-royal-black px-3 py-1 rounded-full text-sm font-bold z-10 shadow-lg">
+                        {product.size}
                       </div>
 
                       {/* Shine effect */}
-                      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                     </div>
 
                     {/* Product info */}

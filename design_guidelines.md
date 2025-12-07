@@ -1,7 +1,7 @@
 # Royal Basmati Premium Rice Mill - Design Guidelines
 
 ## Design Approach
-**Reference-Based Luxury E-Commerce**: Drawing inspiration from premium product showcases (luxury fashion, high-end food brands) with cinematic storytelling and Indian/Bangladeshi heritage craftsmanship aesthetics.
+**Reference-Based Luxury E-Commerce**: Drawing inspiration from premium product showcases (luxury fashion, high-end food brands) with cinematic storytelling and Indian heritage craftsmanship aesthetics.
 
 ## Core Design Principles
 - **Premium Above All**: Every element communicates luxury, quality, and trustworthiness
@@ -100,7 +100,7 @@ Thin horizontal section below hero:
 - Deep black background
 - Golden line separator at top
 - 4-column grid: Logo/Description | Quick Links | Contact (golden icons) | Social Media (golden hover)
-- Bottom: "© 2025 Royal Rice Mills Ltd. Crafted with passion in Bangladesh"
+- Bottom: "© 2025 Royal Rice Mills Ltd. Crafted with passion in India"
 
 ---
 

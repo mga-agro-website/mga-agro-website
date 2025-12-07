@@ -61,7 +61,7 @@ export default function Navigation() {
               </div>
               <div className="flex flex-col">
                 <span className="font-cinzel text-xl font-bold text-white tracking-wider">
-                  ROYAL RICE
+                  MGA AGRO
                 </span>
                 <span className="text-[10px] text-gold/80 tracking-[0.3em] uppercase">
                   Since 1987
@@ -148,7 +148,7 @@ export default function Navigation() {
               >
                 <Wheat className="w-10 h-10 text-gold" />
                 <span className="font-cinzel text-2xl font-bold text-white tracking-wider">
-                  ROYAL RICE
+                  MGA AGRO
                 </span>
               </motion.div>
 

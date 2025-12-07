@@ -58,7 +58,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="font-cinzel text-xl font-bold text-white tracking-wider">
-                  ROYAL RICE
+                  MGA AGRO
                 </span>
                 <span className="text-[10px] text-gold/80 tracking-[0.2em] uppercase">
                   Mills Ltd.
@@ -122,26 +122,26 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
                 <span className="text-white/60">
-                  Industrial Area, Narayanganj<br />
-                  Dhaka, Bangladesh
+                  Kolkata, West Bengal<br />
+                  India, 700001
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-gold flex-shrink-0" />
-                <a href="tel:+8801700000000" className="text-white/60 hover:text-gold transition-colors">
-                  +880 1700-000-000
+                <a href="tel:+919876543210" className="text-white/60 hover:text-gold transition-colors">
+                  +91 98765-43210
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-gold flex-shrink-0" />
-                <a href="mailto:info@royalrice.com" className="text-white/60 hover:text-gold transition-colors">
-                  info@royalrice.com
+                <a href="mailto:info@mgaagro.in" className="text-white/60 hover:text-gold transition-colors">
+                  info@royalrice.in
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-gold flex-shrink-0" />
                 <span className="text-white/60">
-                  Sat - Thu: 9:00 AM - 6:00 PM
+                  Mon - Sat: 9:00 AM - 6:00 PM
                 </span>
               </li>
             </ul>
@@ -194,7 +194,7 @@ export default function Footer() {
           className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm"
         >
           <p className="text-white/40 text-center sm:text-left">
-            © 2025 Royal Rice Mills Ltd. Crafted with passion in Bangladesh
+            © 2025 MGA Agro Ltd. Crafted with passion in India
           </p>
           <div className="flex items-center gap-6">
             <a href="#" className="text-white/40 hover:text-gold transition-colors">

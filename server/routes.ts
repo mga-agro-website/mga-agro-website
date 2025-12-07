@@ -65,11 +65,11 @@ export async function registerRoutes(
       name: "Royal Rice Mills Ltd.",
       tagline: "From Paddy to Plate",
       established: 1987,
-      headquarters: "Narayanganj, Dhaka, Bangladesh",
-      phone: "+880 1700-000-000",
-      email: "info@royalrice.com",
-      address: "Industrial Area, Narayanganj, Dhaka, Bangladesh",
-      hours: "Sat - Thu: 9:00 AM - 6:00 PM",
+      headquarters: "Kolkata, West Bengal, India",
+      phone: "+91 98765-43210",
+      email: "info@royalrice.in",
+      address: "Kolkata, West Bengal, India, 700001 "
+      hours: "Mon - Sat: 9:00 AM - 6:00 PM",
       socialMedia: {
         facebook: "https://facebook.com/royalrice",
         instagram: "https://instagram.com/royalrice",

@@ -14,6 +14,16 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   package: Package,
 };
 
+// Map process step titles to PNG images
+const processImageMap: Record<string, string> = {
+  "Harvesting": "/Our Process/HARVESTER.png",
+  "Drying": "/Our Process/RICE DRYING.png",
+  "De-husking": "/Our Process/DE-HUSKING.png",
+  "Polishing": "/Our Process/POLISHING.png",
+  "Color Sorting": "/Our Process/COLOR SORTING.png",
+  "Packaging": "/Our Process/PACKAGING.png",
+};
+
 export default function ProcessTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -103,6 +113,9 @@ export default function ProcessTimeline() {
               steps?.map((step, index) => {
                 const isEven = index % 2 === 0;
                 const Icon = iconMap[step.icon] || Wheat;
+                // Cards that need opposite icon position in mobile view
+                const oppositeMobileCards = ["Harvesting", "De-husking", "Color Sorting"];
+                const needsOppositeMobile = oppositeMobileCards.includes(step.title);
 
                 return (
                   <motion.div
@@ -123,18 +136,48 @@ export default function ProcessTimeline() {
                         transition={{ type: "spring", stiffness: 300 }}
                         className="inline-block"
                       >
-                        <div className="bg-white/5 backdrop-blur-sm border border-gold/20 rounded-lg p-6 sm:p-8 hover:border-gold/40 transition-all duration-500">
-                          <div className={`flex items-center gap-3 mb-4 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
-                            <span className="text-gold font-cinzel text-sm tracking-wider">
-                              STEP {String(step.id).padStart(2, "0")}
-                            </span>
+                        <div className="bg-white/5 backdrop-blur-sm border border-gold/20 rounded-lg p-6 sm:p-8 hover:border-gold/40 transition-all duration-500 relative overflow-hidden">
+                          {/* Process PNG Icon */}
+                          {processImageMap[step.title] && (
+                            <motion.div
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.5, delay: 0.2 }}
+                              className={`absolute top-2 ${
+                                needsOppositeMobile
+                                  ? isEven
+                                    ? "right-2 md:left-4" // Mobile: right, Desktop: left
+                                    : "left-2 md:right-4" // Mobile: left, Desktop: right
+                                  : isEven
+                                    ? "left-2 md:left-4" // Normal: left on both
+                                    : "right-2 md:right-4" // Normal: right on both
+                              } w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 opacity-25 hover:opacity-35 transition-opacity duration-300 z-0`}
+                            >
+                              <img
+                                src={processImageMap[step.title]}
+                                alt={step.title}
+                                className="w-full h-full object-contain filter drop-shadow-lg"
+                                loading="lazy"
+                              />
+                            </motion.div>
+                          )}
+                          
+                          {/* Content wrapper with relative z-index */}
+                          <div className="relative z-10">
+                          
+                            <div className={`flex items-center gap-3 mb-4 ${isEven ? "md:justify-end" : "md:justify-start"}`}>
+                              <span className="text-gold font-cinzel text-sm tracking-wider">
+                                STEP {String(step.id).padStart(2, "0")}
+                              </span>
+                            </div>
+                            <h3 className="font-cinzel text-2xl sm:text-3xl font-bold text-white mb-3">
+                              {step.title}
+                            </h3>
+                            <p className="font-body text-white/60 leading-relaxed">
+                              {step.description}
+                            </p>
                           </div>
-                          <h3 className="font-cinzel text-2xl sm:text-3xl font-bold text-white mb-3">
-                            {step.title}
-                          </h3>
-                          <p className="font-body text-white/60 leading-relaxed">
-                            {step.description}
-                          </p>
                         </div>
                       </motion.div>
                     </div>
