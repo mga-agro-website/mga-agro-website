@@ -68,7 +68,7 @@ export async function registerRoutes(
       headquarters: "Kolkata, West Bengal, India",
       phone: "+91 98765-43210",
       email: "info@royalrice.in",
-      address: "Kolkata, West Bengal, India, 700001 "
+      address: "Kolkata, West Bengal, India, 700001",
       hours: "Mon - Sat: 9:00 AM - 6:00 PM",
       socialMedia: {
         facebook: "https://facebook.com/royalrice",
