@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, Star } from 'lucide-react';
+import Navbar from '../components/Navbar';
 
 const ProductsPage = () => {
   const [activeVariants, setActiveVariants] = useState({});
   const [activeFilter, setActiveFilter] = useState('all');
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const products = [
+    // ... rest of the code remains same
     {
       id: 1,
       name: 'Premium Super Fine Rice',
@@ -94,23 +101,7 @@ const ProductsPage = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
-      {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <img src="/Logo.webp" alt="MGA AGRO" className="h-9 w-9 rounded-xl" />
-            <span className="text-xl font-extrabold text-gray-900">M.G.A.<span className="text-emerald-600 font-light"> AGRO</span></span>
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link to="/about" className="text-gray-600 hover:text-emerald-600 font-medium text-sm transition-colors">About Us</Link>
-            <Link to="/products-detail" className="text-emerald-600 font-semibold text-sm">Products</Link>
-            <Link to="/contacts" className="text-gray-600 hover:text-emerald-600 font-medium text-sm transition-colors">Contact</Link>
-            <Link to="/" className="flex items-center gap-2 bg-gray-900 text-white text-sm px-4 py-2 rounded-full hover:bg-emerald-700 transition-colors">
-              <ArrowLeft className="w-4 h-4" /> Back to Home
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero */}
       <section className="pt-16 bg-slate-900 relative overflow-hidden">

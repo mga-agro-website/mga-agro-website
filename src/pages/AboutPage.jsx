@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Factory, Sprout, Globe, Award, Users, ArrowLeft, ChevronRight } from 'lucide-react';
+import Navbar from '../components/Navbar';
 
 const AboutPage = () => {
   const [activeTab, setActiveTab] = useState('story');
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const milestones = [
+    // ... rest of the code remains same
     { year: '2020', title: 'Company Founded', desc: 'M.G.A. Agro Industries Pvt. Ltd. incorporated in Murshidabad, West Bengal.' },
     { year: '2021', title: 'Modern Mill Setup', desc: 'Installed state-of-the-art milling & optical sorting machinery with 100 MT/day capacity.' },
     { year: '2022', title: 'First Export', desc: 'Achieved first international export shipment across South and Southeast Asian markets.' },
@@ -46,23 +53,7 @@ const AboutPage = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
-      {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <img src="/Logo.webp" alt="MGA AGRO" className="h-9 w-9 rounded-xl" />
-            <span className="text-xl font-extrabold text-gray-900">M.G.A.<span className="text-emerald-600 font-light"> AGRO</span></span>
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link to="/about" className="text-emerald-600 font-semibold text-sm">About Us</Link>
-            <Link to="/products-detail" className="text-gray-600 hover:text-emerald-600 font-medium text-sm transition-colors">Products</Link>
-            <Link to="/contacts" className="text-gray-600 hover:text-emerald-600 font-medium text-sm transition-colors">Contact</Link>
-            <Link to="/" className="flex items-center gap-2 bg-gray-900 text-white text-sm px-4 py-2 rounded-full hover:bg-emerald-700 transition-colors">
-              <ArrowLeft className="w-4 h-4" /> Back to Home
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero */}
       <section className="pt-16 relative overflow-hidden bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 min-h-[60vh] flex items-center">

@@ -1,26 +1,42 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, ShieldCheck, Leaf } from 'lucide-react';
 
 const Hero = () => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        console.log("Autoplay prevented or video error:", error);
+      });
+    }
+  }, []);
+
   return (
     <section id="home" className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden pt-20 bg-slate-950">
 
       {/* Full-screen Background Video with Dark Premium Overlay */}
       <div className="absolute inset-0 w-full h-full z-0">
         <video
-          src="/hero video.mp4"
+          ref={videoRef}
+          src="/hero-video.mp4"
           autoPlay
           loop
           muted
           playsInline
+          poster="/BG.webp"
           className="w-full h-full object-cover scale-105"
         />
         {/* Advanced Overlay: Dark gradient for maximum text readability and premium depth */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-100/20 to-transparent"></div>
-        <div className="absolute inset-0 bg-grey/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-transparent z-10"></div>
+        <div className="absolute inset-0 bg-slate-950/20 mix-blend-multiply z-10"></div>
+        
+        {/* Animated Mesh Pattern Overlay */}
+        <div className="absolute inset-0 z-10 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none" />
       </div>
 
-      <div className="w-full px-4 sm:px-8 md:px-12 lg:px-20 xl:px-32 relative z-10">
+      <div className="w-full px-4 sm:px-8 md:px-12 lg:px-20 xl:px-32 relative z-20">
         <div className="flex flex-col items-start gap-8">
 
           {/* Text Content */}
@@ -54,14 +70,14 @@ const Hero = () => {
 
             {/* CTA Buttons - Premium Solid & Glass variants */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-5 reveal-up delay-500">
-              <a href="#products" className="group relative overflow-hidden w-full sm:w-auto px-8 py-4 bg-emerald-500 text-slate-950 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-emerald-400 hover:-translate-y-1 flex justify-center items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-                <span>Our Products</span>
+              <Link to="/products-detail" className="group relative overflow-hidden w-full sm:w-auto px-10 py-5 bg-emerald-600 text-slate-950 rounded-full font-bold text-lg transition-all duration-300 hover:bg-emerald-400 hover:-translate-y-1 flex justify-center items-center gap-2 shadow-[0_10px_30px_rgba(16,185,129,0.4)]">
+                <span>Explore Products</span>
                 <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
-              </a>
+              </Link>
 
-              <a href="#contact" className="w-full sm:w-auto px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-white/20 text-white rounded-full font-medium text-lg transition-all duration-300 flex justify-center items-center">
+              <Link to="/contacts" className="w-full sm:w-auto px-10 py-5 bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-white/20 text-white rounded-full font-semibold text-lg transition-all duration-300 flex justify-center items-center">
                 Get in Touch
-              </a>
+              </Link>
             </div>
 
             {/* Trust Indicators - Subtle Design */}
